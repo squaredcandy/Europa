@@ -1,4 +1,4 @@
-package model
+package com.squaredcandy.europa.model
 
 import java.time.OffsetDateTime
 
