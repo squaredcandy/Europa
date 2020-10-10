@@ -13,6 +13,14 @@ fun <R, T : R> getResult(block: () -> R): Result<R> {
     }
 }
 
+private suspend fun <T> getResultSuspended(block: suspend () -> T): Result<T> {
+    return try {
+        Result.Success(block())
+    } catch (throwable: Throwable) {
+        Result.Failure(throwable)
+    }
+}
+
 fun <R, T : R> Result<T>.onSuccess(onSuccess: (value: R) -> Unit): Result<R> {
     return when(this) {
         is Result.Success -> { onSuccess(this.value); this }
