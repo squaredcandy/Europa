@@ -5,7 +5,7 @@ sealed class Result<out T> {
     data class Failure(val throwable: Throwable): Result<Nothing>()
 }
 
-fun <R, T : R> getResult(block: () -> R): Result<R> {
+fun <T> getResult(block: () -> T): Result<T> {
     return try {
         Result.Success(block())
     } catch (throwable: Throwable) {
@@ -13,7 +13,7 @@ fun <R, T : R> getResult(block: () -> R): Result<R> {
     }
 }
 
-private suspend fun <T> getResultSuspended(block: suspend () -> T): Result<T> {
+suspend fun <T> getResultSuspended(block: suspend () -> T): Result<T> {
     return try {
         Result.Success(block())
     } catch (throwable: Throwable) {
