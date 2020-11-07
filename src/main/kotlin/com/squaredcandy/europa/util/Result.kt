@@ -28,7 +28,21 @@ fun <R, T : R> Result<T>.onSuccess(onSuccess: (value: R) -> Unit): Result<R> {
     }
 }
 
+suspend fun <R, T : R> Result<T>.onSuccessSuspended(onSuccess: suspend (value: R) -> Unit): Result<R> {
+    return when(this) {
+        is Result.Success -> { onSuccess(this.value); this }
+        is Result.Failure -> this
+    }
+}
+
 fun <R, T : R> Result<T>.onFailure(onFailure: (throwable: Throwable) -> Unit): Result<R> {
+    return when(this) {
+        is Result.Success -> this
+        is Result.Failure -> { onFailure(this.throwable); this }
+    }
+}
+
+suspend fun <R, T : R> Result<T>.onFailureSuspended(onFailure: suspend (throwable: Throwable) -> Unit): Result<R> {
     return when(this) {
         is Result.Success -> this
         is Result.Failure -> { onFailure(this.throwable); this }
@@ -87,6 +101,13 @@ fun <T, R> Result<T>.fold(onSuccess: (value: T) -> R, onFailure: (throwable: Thr
 fun <T, R> Result<T>.map(transform: (value: T) -> R): Result<R> {
     return when(this) {
         is Result.Success -> getResult { transform(this.value) }
+        is Result.Failure -> this
+    }
+}
+
+suspend fun <T, R> Result<T>.mapSuspended(transform: suspend (value: T) -> R): Result<R> {
+    return when(this) {
+        is Result.Success -> getResultSuspended { transform(this.value) }
         is Result.Failure -> this
     }
 }
