@@ -63,6 +63,13 @@ fun <T> Result<T>.isFailure(): Boolean {
     }
 }
 
+fun <R, T : R> Result<T>.getValueOrThrow(): R {
+    return when(this) {
+        is Result.Success -> this.value
+        is Result.Failure -> throw this.throwable
+    }
+}
+
 fun <R, T : R> Result<T>.getValueOrNull(): R? {
     return when(this) {
         is Result.Success -> this.value
