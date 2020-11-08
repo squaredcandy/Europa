@@ -9,5 +9,5 @@ data class SmartLightData(
     val capabilities: List<SmartLightCapability>,
 ) {
     val isConnected: Boolean
-        get() = ipAddress.isNullOrBlank()
+        get() = !ipAddress.isNullOrBlank()
 }
