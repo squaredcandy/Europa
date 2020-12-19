@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.4.20"
     maven
 }
 
 group = "com.squaredcandy"
-version = "0.0.8"
+version = "0.1.0"
 
 repositories {
     mavenCentral()

@@ -1,4 +1,4 @@
-package com.squaredcandy.europa.model
+package com.squaredcandy.europa.model.smartlight
 
 sealed class SmartLightCapability {
     sealed class SmartLightColor(open val brightness: Float) : SmartLightCapability() {
