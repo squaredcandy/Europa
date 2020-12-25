@@ -4,8 +4,8 @@ import com.squaredcandy.europa.model.SmartDeviceSummary
 import com.squaredcandy.europa.model.user.Group
 
 data class SmartLightSummary(
-    val mac_address: String,
-    val ip_address: String,
+    val macAddress: String,
+    val ipAddress: String,
     val name: String,
     val isOn: Boolean,
     val color: SmartLightCapability.SmartLightColor,
